@@ -1,22 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [logged, setLooged] = useState(false)
+  const [name, setName] = useState('');
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {
+          logged ? 
+            <>
+              <h1 className="title">
+                Mensagens de {name}
+              </h1>
+            </> : 
+            <>
+              <h1 className="title">
+                Usuário não está logado
+              </h1>
+              <button className='button'>
+                Logar
+              </button>
+            </>
+        }
       </header>
     </div>
   );

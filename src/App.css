@@ -1,11 +1,81 @@
 .App {
-  /* text-align: center; */
+  margin: 0;
+	padding: 0;
+	border: 0;
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.cabecalho {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-logout {
+  /* height: 20px; */
+  margin-left: 10px;
+  box-shadow: inset 0px 0px 11px -44px #9fb4f2;
+	background-color: #7892c2;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 17px;
+	padding: 6px 25px;
+	text-decoration: none;
+}
+
+.chats {
+  width: 50vw;
+  background-color: #9fb4f2;
+}
+
+.chat {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  height: 30vh;
+  margin: 10px;
+}
+
+.imageProfile {
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  border-radius: 50px;
+}
+
+.chatlistItem-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid #EEE;
+  padding-right: 15px;
+}
+
+.nameContact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 17px;
+  color: #000;
+}
+
+.lastMessage {
+  font-size: 14px;
+  color: #222121;
+  display: flex;
+  width: 100%
 }
 
 .title {
-  padding: 10px;
   font-size: 32px;
   text-align: center;
+  color: white;
 }
 
 .button {
@@ -36,25 +106,13 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

@@ -6,6 +6,10 @@
   min-height: 100vh;
 }
 
+p {
+  color: #fff;
+}
+
 .cabecalho {
   display: flex;
   flex-direction: row;

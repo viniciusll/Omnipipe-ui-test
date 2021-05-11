@@ -92,9 +92,19 @@ function App() {
     }
   };
 
+  const eventMessages = () => {
+    if (connection !== null) {
+      connection.on('newMessage', message => {
+        const newMessage = JSON.parse(message);
+        console.log("message: ", newMessage);
+      });
+    };
+  };
+
   useEffect(() => {
     onClose();
     connecting();
+    eventMessages();
   }, [connection]);
 
 
@@ -126,7 +136,7 @@ function App() {
                         </div>
                       </div>
                     </div>
-                  )) : 'Vc n tem messages'
+                  )) : <p>Vc n tem messages</p>
                 }
               </div>
             </> :

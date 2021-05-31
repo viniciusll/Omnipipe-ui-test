@@ -6,6 +6,7 @@ import * as signalR from "@microsoft/signalr";
 // import { b2cPolicies } from './services/polices.service.js';
 // import { apiConfig } from './services/polices.service.js';
 import jwt from 'jsonwebtoken';
+import axios from 'axios';
 
 function App() {
   const { instance } = useMsal();
@@ -64,7 +65,7 @@ function App() {
       const connection = new signalR.HubConnectionBuilder()
         .withUrl('https://omnipipe-functions.express.dev.br/api', {
           accessTokenFactory: () => token,
-          headers: {'x-ms-client-principal-id': decoded ? decoded.sub : '' }
+          headers: { 'x-ms-client-principal-id': decoded ? decoded.sub : '' }
         })
         .configureLogging(signalR.LogLevel.Information)
         .build();
@@ -101,12 +102,24 @@ function App() {
     };
   };
 
+  const sendMessage = () => {
+    axios.put('https://omnipipe-functions.express.dev.br/api/transferChat', {
+      chatId: "cf53d80d-424d-415f-b796-254730d694e4",
+      newUserId: "d72dc9a7-fdb3-4bcd-a135-e3215aca0242"
+    },
+      {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      }
+    )
+  }
+
   useEffect(() => {
     onClose();
     connecting();
     eventMessages();
   }, [connection]);
-
 
   return (
     <div className="App">
@@ -118,6 +131,10 @@ function App() {
                 <h1 className="title">Mensagens</h1>
                 <button className='button-logout' onClick={() => handleLogout()}>
                   Sair
+                </button>
+
+                <button className='button-logout' onClick={() => sendMessage()}>
+                  SendMessage
                 </button>
               </div>
               <div className='messages'>

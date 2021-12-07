@@ -99,14 +99,37 @@ function App() {
         const newMessage = JSON.parse(message);
         console.log("message: ", newMessage);
       });
+
+      connection.on('extendedTextMessage', message => {
+        const newMessage = JSON.parse(message);
+        console.log("message: ", newMessage);
+      });
     };
   };
 
+  const [image, setImage] = useState(null)
+  const [caption, setCaption] = useState('')
+  const [conversation, setConversation] = useState('');
+
+  const handleUploadImage = (e) => {
+    let file = e.target.files[0];
+    console.log('file: ', file)
+    setImage(file)
+  }
+
   const sendMessage = () => {
-    axios.put('https://omnipipe-functions.express.dev.br/api/transferChat', {
-      chatId: "cf53d80d-424d-415f-b796-254730d694e4",
-      newUserId: "d72dc9a7-fdb3-4bcd-a135-e3215aca0242"
-    },
+    // const data = new FormData();
+    // console.log(image)
+    // data.append('file', image);
+    // data.append('chatId', "0b48748b-4d97-473d-b2ea-4fbd734638aa");
+    // data.append('caption', 'teste omnipipe');
+
+    axios.post('http://localhost:7071/api/sendExtendedTextMessage', 
+      {
+        chatId: '0b48748b-4d97-473d-b2ea-4fbd734638aa',
+        messageType: 'text',
+        conversation: 'teste omnipipe'
+      },
       {
         headers: {
           authorization: `Bearer ${token}`
@@ -132,30 +155,16 @@ function App() {
                 <button className='button-logout' onClick={() => handleLogout()}>
                   Sair
                 </button>
+                <br />
+                <br />
+              </div>
+              <input onChange={handleUploadImage} type="file" placeholder="Digite a mensagem..." />
+              <input onChange={(e) => setConversation(e.target.value)} type="text" placeholder="Digite a mensagem..." />
+              <br />
 
-                <button className='button-logout' onClick={() => sendMessage()}>
-                  SendMessage
-                </button>
-              </div>
-              <div className='messages'>
-                {
-                  messages.length !== 0 ? messages.map(message => (
-                    <div key={message.id} className='chat'>
-                      <img src='https://static.remove.bg/remove-bg-web/2a274ebbb5879d870a69caae33d94388a88e0e35/assets/start-0e837dcc57769db2306d8d659f53555feb500b3c5d456879b9c843d1872e7baa.jpg' className='imageProfile' alt='imagem do perfil' />
-                      <div className='chatlistItem-lines'>
-                        <div className='nameContact'>
-                          {message.Contact.name === null ? message.Contact.jid : message.Contact.name}
-                        </div>
-                        <div className='lastMessage'>
-                          <p>
-                            {message ? message.messages[0].conversation : ''}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )) : <p>Vc n tem messages</p>
-                }
-              </div>
+              <button className='button-logout' onClick={() => sendMessage()}>
+                SendMessage
+              </button>
             </> :
             <>
               <h1 className="title">
